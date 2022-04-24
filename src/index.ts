@@ -18,8 +18,8 @@ let maxApplesEaten: number = window.localStorage.getItem("maxApplesEaten")
 highscore!.innerHTML = maxApplesEaten + "";
 
 const NewGame = () => {
-  const field: number[][] = Array.from(new Array(32), () =>
-    Array.from(new Array(32), () => 0)
+  const field: number[][] = Array.from(new Array(20), () =>
+    Array.from(new Array(20), () => 0)
   );
 
   let apples: Apple[] = [
@@ -68,7 +68,6 @@ const NewGame = () => {
           let offset = [0, 0];
           switch (last.direction) {
             case "w":
-              offset = [0, 1];
               break;
             case "a":
               offset = [1, 0];
@@ -106,18 +105,20 @@ const NewGame = () => {
           cell.x++;
           break;
       }
-      snake.forEach((cell2, k) => {
-        if (cell.x === cell2.x && cell.y === cell2.y && i !== k) {
-          //@ts-ignore
-          LoseGame(loop);
-        }
-      });
+      if (cell.x < 0) {
+        cell.x = WIDTH + cell.x;
+      } else if (cell.y < 0) {
+        cell.y = HEIGHT + cell.y;
+      } else if (cell.x + 1 > WIDTH) {
+        cell.x = 0;
+      } else if (cell.y + 1 > HEIGHT) {
+        cell.y = 0;
+      }
+      if (cell.x === head.x && cell.y === head.y && i !== 0) {
+        //@ts-ignore
+        LoseGame(loop);
+      }
     });
-
-    if (head.x < 0 || head.x > WIDTH || head.y < 0 || head.y > HEIGHT) {
-      //@ts-ignore
-      LoseGame(loop);
-    }
 
     cx!.fillRect(0, 0, canvas!.width, canvas!.height);
     for (let i = 0; i < HEIGHT; i++) {
