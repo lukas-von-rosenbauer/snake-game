@@ -134,11 +134,11 @@ const NewGame = () => {
         cx!.fillStyle = "AQUA";
         cx!.fillRect(head.x * 32, head.y * 32, 32, 32);
 
-        cx!.strokeStyle = "WHITE";
-        cx!.strokeRect(i * 32, k * 32, 32, 32);
+        // cx!.strokeStyle = "WHITE";
+        // cx!.strokeRect(i * 32, k * 32, 32, 32);
       }
     }
-  }, 100);
+  }, 80);
 
   window.addEventListener("keydown", event => {
     switch (event.key) {
